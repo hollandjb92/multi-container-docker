@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t hollandjb92/multi-container-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true hollandjb92/multi-container-docker npm run test
+
+after_success:
+  - docker build -t hollandjb92/multi-client ./client
+  - docker build -t hollandjb92/multi-nginx ./nginx
+  - docker build -t hollandjb92/multi-server ./server
+  - docker build -t hollandjb92/multi-worker ./worker
+
+  #Login to Docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push images to docker hub
+  - docker push hollandjb92/multi-client
+  - docker push hollandjb92/multi-nginx
+  - docker push hollandjb92/multi-server
+  - docker push hollandjb92/multi-worker
