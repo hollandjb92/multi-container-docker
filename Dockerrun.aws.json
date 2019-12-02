@@ -4,13 +4,15 @@
       "name": "client",
       "image": "hollandjb92/multi-client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
       "image": "hollandjb92/multi-nginx",
       "hostname": "nginx",
       "essential": true,
+      "memory": 128,
       "portMappings": [{
         "hostPort": 80,
         "containerPort": 80
@@ -23,13 +25,15 @@
       "name": "server",
       "image": "hollandjb92/multi-server",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "worker",
       "image": "hollandjb92/multi-worker",
       "hostname": "worker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     }
   ]
 
